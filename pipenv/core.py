@@ -1051,7 +1051,8 @@ def do_lock(
             'dev': False
         }
     }
-    for section_name, settings in sections.items():
+    for section_name in ['dev', 'default']:
+        settings = sections[section_name]
         if write:
             # Alert the user of progress.
             click.echo(
@@ -1075,7 +1076,7 @@ def do_lock(
             pre=pre,
             allow_global=system,
         )
-        # Add develop dependencies to lockfile.
+        # Add dependencies to lockfile.
         for dep in results:
             is_top_level = dep['name'] in settings['packages']
             pipfile_entry = settings['packages'][dep['name']] if is_top_level else None
